@@ -10,15 +10,16 @@
     <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web" />
 
-    <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" />
-    <link rel="shortcut icon" href="{{asset('src_dashboard/img/icons/icon-48x48.png')}}" />
+    <link rel="preconnect" href="{{ asset('https://fonts.gstatic.com') }}" />
+    <link rel="shortcut icon" href="{{ asset('src_dashboard/img/icons/icon-48x48.png') }}" />
 
     {{-- <link rel="canonical" href="https://demo-basic.adminkit.io/" /> --}}
 
     <title>SialMU - @yield('title')</title>
 
-    <link href="{{asset('src_dashboard/css/app.css')}}" rel="stylesheet" />
-    <link href="{{asset('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap')}}" rel="stylesheet" />
+    <link href="{{ asset('src_dashboard/css/app.css') }}" rel="stylesheet" />
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap') }}"
+        rel="stylesheet" />
 </head>
 
 <body>
@@ -42,8 +43,9 @@
         </div>
     </div>
 
-    <script src="{{asset('src_dashboard/js/app.js')}}"></script>
-    <script src="{{asset('https://kit.fontawesome.com/4ca89fc614.js')}}" crossorigin="anonymous"></script>
+    <script src="{{ asset('src_dashboard/js/app.js') }}"></script>
+    <script src="{{ asset('https://kit.fontawesome.com/4ca89fc614.js') }}" crossorigin="anonymous"></script>
+    @stack('scripts')
 </body>
 
 </html>

@@ -75,6 +75,15 @@
                     </a>
                 </li>
 
+                <li class="sidebar-header">Master Extra</li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/lowongan">
+                        <i class="align-middle" data-feather="file"></i>
+                        <span class="align-middle">Lowongan</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-header">Master Data Referensi</li>
 
                 <li class="sidebar-item">

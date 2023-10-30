@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ReferensiTahunController;
 use App\Http\Controllers\StatusAlumniController;
@@ -62,6 +63,12 @@ Route::middleware('auth')->group(function() {
     // * Riwayat Status Alumni (Alumni)
     Route::get('/riwayat-lanjut-study', [StatusAlumniController::class, 'riwayatLanjutStudy']);
     Route::get('/riwayat-bekerja', [StatusAlumniController::class, 'riwayatBekerja']);
+
+    // * Lowongan (Admin)
+    Route::get('/lowongan', [LowonganController::class, 'lowongan']);
+    Route::get('/add-lowongan', [LowonganController::class, 'addLowongan']);
+    Route::post('/store-lowongan', [LowonganController::class, 'storeLowongan']);
+    Route::post('/ckeditor/upload', [LowonganController::class, 'upload'])->name('ckeditor.image-upload');
 
     Route::get('logout', [UserController::class, 'logout']);
 });
