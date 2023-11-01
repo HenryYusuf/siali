@@ -68,6 +68,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/lowongan', [LowonganController::class, 'lowongan']);
     Route::get('/add-lowongan', [LowonganController::class, 'addLowongan']);
     Route::post('/store-lowongan', [LowonganController::class, 'storeLowongan']);
+    Route::get('/edit-lowongan/{id}', [LowonganController::class, 'editLowongan']);
+    Route::post('/update-lowongan/{id}', [LowonganController::class, 'updateLowongan']);
+    Route::get('/delete-lowongan/{id}', [LowonganController::class, 'deleteLowongan']);
+    Route::get('/view-lowongan/{id}', [LowonganController::class, 'viewLowongan']);
     Route::post('/ckeditor/upload', [LowonganController::class, 'upload'])->name('ckeditor.image-upload');
 
     Route::get('logout', [UserController::class, 'logout']);
