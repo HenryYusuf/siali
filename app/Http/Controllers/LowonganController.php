@@ -12,6 +12,10 @@ class LowonganController extends Controller
 {
     public function lowongan(): View
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
+
         $getLowongan = Lowongan::all();
 
         return view('app.admin.lowongan.lowongan', ['getLowongan' => $getLowongan]);
@@ -19,12 +23,18 @@ class LowonganController extends Controller
 
     public function addLowongan(): View
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
+
         return view('app.admin.lowongan.add_lowongan');
     }
 
     public function storeLowongan(Request $request): RedirectResponse
     {
-        // dd($request->all());
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return redirect('/not-found');
+        }
 
         $request->validate([
             'nama_lowongan' => 'required',
@@ -77,21 +87,22 @@ class LowonganController extends Controller
 
     public function editLowongan($id): View
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
 
         $lowongan = Lowongan::with('user')->where('id', $id)->first();
-
-        // dd($lowongan);
 
         return view('app.admin.lowongan.edit_lowongan', ['lowongan' => $lowongan]);
     }
 
     public function updateLowongan(Request $request, $id): RedirectResponse
     {
-        // dd($request->all());
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return redirect('/not-found');
+        }
 
         if ($request->hasFile('foto_brosur')) {
-            // dd('Ini ada file');
-
             $request->validate([
                 'nama_lowongan' => 'required',
                 'nama_perusahaan' => 'required',
@@ -150,13 +161,23 @@ class LowonganController extends Controller
 
     }
 
-    public function deleteLowongan($id) : RedirectResponse {
+    public function deleteLowongan($id): RedirectResponse
+    {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return redirect('/not-found');
+        }
+
         Lowongan::where('id', $id)->delete();
 
         return redirect()->intended('lowongan');
     }
 
-    public function viewLowongan($id) : View {
+    public function viewLowongan($id): View
+    {
+
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
 
         $viewLowongan = Lowongan::with('user')->where('id', $id)->first();
 

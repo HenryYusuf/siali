@@ -6,12 +6,17 @@ use App\Models\Profil;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ValidasiAlumniController extends Controller
 {
     public function validasiAlumni(): View
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
+
         $users = User::with(['roles', 'profil'])->whereHas('roles', function ($query) {
             $query->where('nama_role', 'Alumni');
         })->get();
@@ -23,6 +28,10 @@ class ValidasiAlumniController extends Controller
 
     public function approveValidasiAlumni($id): RedirectResponse
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return redirect('/not-found');
+        }
+
         Profil::where('user_id', $id)->update(['is_validate' => 1, 'deskripsi_is_validate' => 'Update Profile Accepted']);
 
         return redirect()->intended('validasi-alumni');
@@ -30,13 +39,9 @@ class ValidasiAlumniController extends Controller
 
     public function viewValidasiAlumni($id): View
     {
-        // $users = User::with(['groups', 'profil', 'statusAlumni'])->whereHas('groups', function ($query) {
-        //     $query->where('nama', 'siswa');
-        // })->whereHas('profil', function($query) use ($id) {
-        //     $query->where('user_id', $id);
-        // })->whereHas('statusAlumni', function($query) use ($id) {
-        //     $query->where('user_id', $id);
-        // })->get();
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.not_found');
+        }
 
         $user = User::where('id', $id)->first();
 
@@ -45,6 +50,10 @@ class ValidasiAlumniController extends Controller
 
     public function storeKomenValidasiAlumni(Request $request, $id): RedirectResponse
     {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return redirect('/not-found');
+        }
+
         $request->validate([
             'deskripsi_is_validate' => 'required'
         ]);

@@ -76,3 +76,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('logout', [UserController::class, 'logout']);
 });
+
+Route::get('/not-found', function() {
+    return view('errors.not_found');
+});
