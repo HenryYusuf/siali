@@ -14,7 +14,7 @@ class ValidasiAlumniController extends Controller
     public function validasiAlumni(): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $users = User::with(['roles', 'profil'])->whereHas('roles', function ($query) {
@@ -29,7 +29,7 @@ class ValidasiAlumniController extends Controller
     public function approveValidasiAlumni($id): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         Profil::where('user_id', $id)->update(['is_validate' => 1, 'deskripsi_is_validate' => 'Update Profile Accepted']);
@@ -40,7 +40,7 @@ class ValidasiAlumniController extends Controller
     public function viewValidasiAlumni($id): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $user = User::where('id', $id)->first();
@@ -51,7 +51,7 @@ class ValidasiAlumniController extends Controller
     public function storeKomenValidasiAlumni(Request $request, $id): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         $request->validate([

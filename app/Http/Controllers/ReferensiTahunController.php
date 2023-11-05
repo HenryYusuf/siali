@@ -14,7 +14,7 @@ class ReferensiTahunController extends Controller
     {
 
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $refTahun = ReferensiTahun::orderBy('ref_tahun', 'desc')->get();
@@ -25,7 +25,7 @@ class ReferensiTahunController extends Controller
     public function addReferensiTahun(): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         return view('app.admin.referensi.add_referensi_tahun');
@@ -34,7 +34,7 @@ class ReferensiTahunController extends Controller
     public function storeReferensiTahun(Request $request): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         $request->validate([
@@ -51,7 +51,7 @@ class ReferensiTahunController extends Controller
     public function deleteReferensiTahun($id): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         ReferensiTahun::where('id', $id)->delete();

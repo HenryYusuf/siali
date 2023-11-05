@@ -13,7 +13,7 @@ class LowonganController extends Controller
     public function lowongan(): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $getLowongan = Lowongan::all();
@@ -24,7 +24,7 @@ class LowonganController extends Controller
     public function addLowongan(): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         return view('app.admin.lowongan.add_lowongan');
@@ -33,7 +33,7 @@ class LowonganController extends Controller
     public function storeLowongan(Request $request): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         $request->validate([
@@ -88,7 +88,7 @@ class LowonganController extends Controller
     public function editLowongan($id): View
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $lowongan = Lowongan::with('user')->where('id', $id)->first();
@@ -99,7 +99,7 @@ class LowonganController extends Controller
     public function updateLowongan(Request $request, $id): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         if ($request->hasFile('foto_brosur')) {
@@ -164,7 +164,7 @@ class LowonganController extends Controller
     public function deleteLowongan($id): RedirectResponse
     {
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return redirect('/not-found');
+            return redirect('/404');
         }
 
         Lowongan::where('id', $id)->delete();
@@ -176,7 +176,7 @@ class LowonganController extends Controller
     {
 
         if (Auth::user()->roles->first()->nama_role != 'Administrator') {
-            return view('errors.not_found');
+            return view('errors.404');
         }
 
         $viewLowongan = Lowongan::with('user')->where('id', $id)->first();
