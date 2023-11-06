@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ReferensiTahunController;
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'index']);
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/store-login', [UserController::class, 'storeLogin']);
