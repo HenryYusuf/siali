@@ -49,6 +49,10 @@
                         <label for="" class="form-label">No HandPhone</label>
                         <input type="text" class="form-control" value="{{ $user->profil->no_hp }}" disabled>
                     </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tahun Lulus</label>
+                        <input type="text" class="form-control" value="{{ $user->profil->tahun_lulus }}" disabled>
+                    </div>
                     @if ($user->profil->is_validate == 1)
                     @else
                         <a class="btn btn-primary" href="/approve-validasi-alumni/{{ $user->id }}">Validasi</a>

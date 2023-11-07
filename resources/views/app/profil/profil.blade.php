@@ -42,11 +42,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="form-control" name="tanggal_lahir" value="{{ $profil->tanggal_lahir ?? '' }}">
+                            <input type="date" class="form-control" name="tanggal_lahir"
+                                value="{{ $profil->tanggal_lahir ?? '' }}">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control" name="tempat_lahir" value="{{ $profil->tempat_lahir ?? '' }}">
+                            <input type="text" class="form-control" name="tempat_lahir"
+                                value="{{ $profil->tempat_lahir ?? '' }}">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat</label>
@@ -55,7 +57,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">No Ijazah</label>
-                            <input type="number" class="form-control" name="no_ijazah" value="{{ $profil->no_ijazah ?? '' }}">
+                            <input type="number" class="form-control" name="no_ijazah"
+                                value="{{ $profil->no_ijazah ?? '' }}">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">No Handphone</label>
@@ -71,7 +74,7 @@
                                         {{ $tahun->ref_tahun }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div>
                             <label for="" class="form-label">Tahun Lulus</label>
                             <select class="form-select mb-3" name="tahun_lulus" id="tahun_lulus">
@@ -82,7 +85,7 @@
                                         {{ $tahun->ref_tahun }}</option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
                         <button class="btn btn-primary">Update</button>
                     </form>
                 </div>

@@ -21,11 +21,14 @@ class Profil extends Model
         'alamat',
         'no_ijazah',
         'no_hp',
+        'foto_profil',
+        'tahun_lulus',
         'is_validate',
         'deskripsi_is_validate',
     ];
 
-    public function user() : BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 }

@@ -38,6 +38,7 @@ class ProfilController extends Controller
             'alamat' => 'required',
             'no_ijazah' => 'required',
             'no_hp' => 'required',
+            'tahun_lulus' => 'required',
         ]);
 
         if (!$userIdProfil) {
@@ -51,6 +52,7 @@ class ProfilController extends Controller
                 'alamat' => $request->alamat,
                 'no_ijazah' => $request->no_ijazah,
                 'no_hp' => $request->no_hp,
+                'tahun_lulus' => $request->tahun_lulus,
                 'is_validate' => 0,
                 'deskripsi_is_validate' => 'Dalam Verifikasi',
             ]);
@@ -65,6 +67,7 @@ class ProfilController extends Controller
                 'alamat' => $request->alamat,
                 'no_ijazah' => $request->no_ijazah,
                 'no_hp' => $request->no_hp,
+                'tahun_lulus' => $request->tahun_lulus,
                 'is_validate' => 0,
                 'deskripsi_is_validate' => 'Dalam Verifikasi',
             ]);
