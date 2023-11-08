@@ -19,9 +19,11 @@ class ValidasiAlumniController extends Controller
 
         $users = User::with(['roles', 'profil'])->whereHas('roles', function ($query) {
             $query->where('nama_role', 'Alumni');
-        })->get();
-
-        // dd($users);
+        })
+            ->whereHas('profil', function ($query) {
+                $query->where('is_validate', 0);
+            })
+            ->paginate(10);
 
         return view('app.admin.manajemen_alumni.validasi_alumni', ['users' => $users]);
     }
@@ -63,5 +65,22 @@ class ValidasiAlumniController extends Controller
         ]);
 
         return redirect()->intended('validasi-alumni');
+    }
+
+    public function alumniVerified(): View
+    {
+        if (Auth::user()->roles->first()->nama_role != 'Administrator') {
+            return view('errors.404');
+        }
+
+        $users = User::with(['roles', 'profil'])->whereHas('roles', function ($query) {
+            $query->where('nama_role', 'Alumni');
+        })
+            ->whereHas('profil', function ($query) {
+                $query->where('is_validate', 1);
+            })
+            ->paginate(10);
+
+        return view('app.admin.manajemen_alumni.alumni_verified', ['users' => $users]);
     }
 }

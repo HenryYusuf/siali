@@ -12,16 +12,18 @@ use Illuminate\View\View;
 
 class StatusAlumniController extends Controller
 {
-    public function statusAlumni() : View {
+    public function statusAlumni(): View
+    {
         return view('app.status_alumni.status_alumni');
     }
 
-    public function tidakBekerja(Request $request, $id) : RedirectResponse {
+    public function tidakBekerja(Request $request, $id): RedirectResponse
+    {
         $today = Carbon::today();
 
         $sixMonthsAgo = $today->subMonths(6);
 
-        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=' , $sixMonthsAgo)->first();
+        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
             return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
@@ -35,20 +37,22 @@ class StatusAlumniController extends Controller
         return redirect()->back();
     }
 
-    public function formLanjutStudy() : View {
+    public function formLanjutStudy(): View
+    {
 
         $refTahun = ReferensiTahun::orderBy('ref_tahun', 'desc')->get();
 
         return view('app.status_alumni.form_lanjut_study', ['refTahun' => $refTahun]);
     }
 
-    public function storeLanjutStudy(Request $request, $id) : RedirectResponse {
+    public function storeLanjutStudy(Request $request, $id): RedirectResponse
+    {
 
         $today = Carbon::today();
 
         $sixMonthsAgo = $today->subMonths(6);
 
-        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=' , $sixMonthsAgo)->first();
+        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
             return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
@@ -76,19 +80,21 @@ class StatusAlumniController extends Controller
         return redirect()->back();
     }
 
-    public function formLanjutBekerja() : View {
+    public function formLanjutBekerja(): View
+    {
         $refTahun = ReferensiTahun::orderBy('ref_tahun', 'desc')->get();
 
         return view('app.status_alumni.form_lanjut_bekerja', ['refTahun' => $refTahun]);
     }
 
-    public function storeLanjutBekerja(Request $request, $id) : RedirectResponse {
+    public function storeLanjutBekerja(Request $request, $id): RedirectResponse
+    {
 
         $today = Carbon::today();
 
         $sixMonthsAgo = $today->subMonths(6);
 
-        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=' , $sixMonthsAgo)->first();
+        $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
             return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
@@ -116,14 +122,16 @@ class StatusAlumniController extends Controller
         return redirect()->back();
     }
 
-    public function riwayatLanjutStudy() : View {
-        $riwayatStudy = StatusAlumni::where('user_id', Auth::id())->where('status', '=', 'Lanjut Study')->get();
+    public function riwayatLanjutStudy(): View
+    {
+        $riwayatStudy = StatusAlumni::where('user_id', Auth::id())->where('status', '=', 'Lanjut Study')->paginate(5);
 
         return view('app.status_alumni.riwayat_lanjut_study', ['riwayatStudy' => $riwayatStudy]);
     }
 
-    public function riwayatBekerja() : View {
-        $riwayatBekerja = StatusAlumni::where('user_id', Auth::id())->where('status', '=', 'Bekerja')->get();
+    public function riwayatBekerja(): View
+    {
+        $riwayatBekerja = StatusAlumni::where('user_id', Auth::id())->where('status', '=', 'Bekerja')->paginate(5);
 
         return view('app.status_alumni.riwayat_bekerja', ['riwayatBekerja' => $riwayatBekerja]);
     }

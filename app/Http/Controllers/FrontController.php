@@ -40,7 +40,7 @@ class FrontController extends Controller
                 ->orWhereHas('profil', function ($query) use ($search) {
                     $query->where('tempat_lahir', 'like', '%' . $search . '%');
                 })
-                ->get();
+                ->paginate(5);
 
             return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni]);
         }

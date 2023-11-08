@@ -79,6 +79,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {!! $alumni->links() !!}
                     </div>
                 @endif
             </div>

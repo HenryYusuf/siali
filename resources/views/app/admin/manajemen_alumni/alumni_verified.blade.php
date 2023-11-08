@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Validasi Alumni</h5>
+                    <h5 class="card-title mb-0">Alumni Verified</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-stripped">

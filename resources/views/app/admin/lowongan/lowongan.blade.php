@@ -23,10 +23,8 @@
                                 <th>Nama Lowongan</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Lokasi</th>
-                                {{-- <th>Foto Brosur</th> --}}
                                 <th>Gaji</th>
                                 <th>Email</th>
-                                {{-- <th>Deskripsi</th> --}}
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -37,12 +35,8 @@
                                     <td>{{ $lowongan->nama_lowongan }}</td>
                                     <td>{{ $lowongan->nama_perusahaan }}</td>
                                     <td>{{ $lowongan->lokasi }}</td>
-                                    {{-- <td>
-                                        <img src="{{ asset($lowongan->foto_brosur) }}" alt="Brosur" width="50">
-                                    </td> --}}
                                     <td>{{ $lowongan->gaji }}</td>
                                     <td>{{ $lowongan->email }}</td>
-                                    {{-- <td>{!! $lowongan->deskripsi !!}</td> --}}
                                     <td>
                                         <a href="/view-lowongan/{{ $lowongan->id }}" title="View">
                                             <i class="fa-regular fa-eye" style="color: #000000;"></i>
@@ -58,6 +52,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {!! $getLowongan->links() !!}
                 </div>
             </div>
         </div>

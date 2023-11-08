@@ -16,7 +16,7 @@ class LowonganController extends Controller
             return view('errors.404');
         }
 
-        $getLowongan = Lowongan::all();
+        $getLowongan = Lowongan::paginate(10);
 
         return view('app.admin.lowongan.lowongan', ['getLowongan' => $getLowongan]);
     }

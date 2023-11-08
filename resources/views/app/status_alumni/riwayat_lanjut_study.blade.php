@@ -31,12 +31,14 @@
                                     <td>{{ $study->jurusan }}</td>
                                     <td>{{ $study->tahun_masuk }}</td>
                                     <td>
-                                        <img src="{{ asset($study->bukti) }}" alt="bukti" class="img-fluid" width="50">
+                                        <img src="{{ asset($study->bukti) }}" alt="bukti" class="img-fluid"
+                                            width="50">
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {!! $riwayatStudy->links() !!}
                 </div>
             </div>
         </div>

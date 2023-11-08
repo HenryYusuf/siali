@@ -18,6 +18,7 @@
     <title>SIAli - @yield('title')</title>
 
     <link href="{{ asset('src_dashboard/css/app.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('src_dashboard/css/pagination.css') }}">
     <link href="{{ asset('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap') }}"
         rel="stylesheet" />
     @stack('css')

@@ -63,17 +63,10 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                <li class="sidebar-item {{ Request::is('alumni-verified') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ url('/alumni-verified') }}">
                         <i class="align-middle fa-solid fa-users"></i>
                         <span class="align-middle">Alumni Verified</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                        <i class="fa-solid fa-users-gear"></i>
-                        <span class="align-middle">Alumni Un-Verified</span>
                     </a>
                 </li>
 
@@ -89,7 +82,8 @@
 
                 <li class="sidebar-header">Master Data Referensi</li>
 
-                <li class="sidebar-item {{ (Request::is('referensi-tahun') ? 'active' : (Request::is('add-referensi-tahun') ? 'active' : '')) }}">
+                <li
+                    class="sidebar-item {{ Request::is('referensi-tahun') ? 'active' : (Request::is('add-referensi-tahun') ? 'active' : '') }}">
                     <a class="sidebar-link" href="{{ url('/referensi-tahun') }}">
                         <i class="align-middle" data-feather="file"></i>
                         <span class="align-middle">Referensi Tahun</span>

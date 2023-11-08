@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/approve-validasi-alumni/{id}', [ValidasiAlumniController::class, 'approveValidasiAlumni']);
     Route::get('/view-validasi-alumni/{id}', [ValidasiAlumniController::class, 'viewValidasiAlumni']);
     Route::post('/store-komen-validasi-alumni/{id}', [ValidasiAlumniController::class, 'storeKomenValidasiAlumni']);
+    Route::get('/alumni-verified', [ValidasiAlumniController::class, 'alumniVerified']);
 
     // * Referensi Tahun (Admin)
     Route::get('/referensi-tahun', [ReferensiTahunController::class, 'referensiTahun']);
