@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontController::class, 'index']);
+// Route::get('/', [FrontController::class, 'index']);
+Route::post('/search-alumni', [FrontController::class, 'index']);
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/store-login', [UserController::class, 'storeLogin']);
@@ -28,8 +30,8 @@ Route::post('/store-login', [UserController::class, 'storeLogin']);
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/store-register', [UserController::class, 'storeRegister']);
 
-Route::middleware('auth')->group(function() {
-    Route::get('/dashboard', function() {
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
         return view('app.dashboard');
     });
 
@@ -76,6 +78,6 @@ Route::middleware('auth')->group(function() {
     Route::get('logout', [UserController::class, 'logout']);
 });
 
-Route::get('/404', function() {
+Route::get('/404', function () {
     return view('errors.404');
 });

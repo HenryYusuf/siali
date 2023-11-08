@@ -17,7 +17,7 @@ class ReferensiTahunController extends Controller
             return view('errors.404');
         }
 
-        $refTahun = ReferensiTahun::orderBy('ref_tahun', 'desc')->get();
+        $refTahun = ReferensiTahun::orderBy('ref_tahun', 'desc')->paginate(5);
 
         return view('app.admin.referensi.referensi_tahun', ['refTahun' => $refTahun]);
     }
