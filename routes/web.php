@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ReferensiTahunController;
 use App\Http\Controllers\StatusAlumniController;
+use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiAlumniController;
 use Illuminate\Support\Facades\Route;
@@ -20,20 +23,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Homepage
 Route::get('/', [FrontController::class, 'index']);
-// Route::get('/', [FrontController::class, 'index']);
 Route::post('/search-alumni', [FrontController::class, 'index']);
 
+// Career
+Route::get('/career', [CareerController::class, 'index']);
+Route::get('/career/{id}', [CareerController::class, 'viewCareer']);
+
+// Login
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/store-login', [UserController::class, 'storeLogin']);
 
+// Register
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/store-register', [UserController::class, 'storeRegister']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('app.dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::post('/store-testimoni', [DashboardController::class, 'store']);
 
     // * Profil (Admin & Alumni)
     Route::get('/profil/{id}', [ProfilController::class, 'profil']);
@@ -75,6 +83,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete-lowongan/{id}', [LowonganController::class, 'deleteLowongan']);
     Route::get('/view-lowongan/{id}', [LowonganController::class, 'viewLowongan']);
     Route::post('/ckeditor/upload', [LowonganController::class, 'upload'])->name('ckeditor.image-upload');
+
+    // * Testimoni (Admin & Alumni)
+    Route::get('/testimoni', [TestimoniController::class, 'testimoni']);
+    Route::get('/set-featured-testimoni/{id}', [TestimoniController::class, 'setFeatured']);
 
     Route::get('logout', [UserController::class, 'logout']);
 });

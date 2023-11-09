@@ -12,6 +12,7 @@ class FrontController extends Controller
     {
         $showcaseURL = [
             asset('src_front/assets/img/bg-showcase-1.jpg'),
+            asset('src_front/assets/img/consultant_3.jpg'),
             asset('src_front/assets/img/bg-showcase-2.jpg'),
             asset('src_front/assets/img/bg-showcase-3.jpg'),
         ];
@@ -21,6 +22,10 @@ class FrontController extends Controller
             asset('src_front/assets/img/testimonials-2.jpg'),
             asset('src_front/assets/img/testimonials-3.jpg'),
         ];
+
+        $testimoni = User::with('profil', 'testimoni')->whereHas('testimoni', function ($query) {
+            $query->where('is_featured', 1);
+        })->orderBy('updated_at', 'desc')->limit(3)->get();
 
         if ($request->isMethod("POST")) {
             $request->validate([
@@ -45,6 +50,6 @@ class FrontController extends Controller
             return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni]);
         }
 
-        return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni = ""]);
+        return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni = "", 'testimoni' => $testimoni]);
     }
 }

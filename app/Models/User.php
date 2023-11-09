@@ -46,19 +46,28 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany
+    {
         return $this->belongsToMany(Role::class, 'user_roles');
     }
 
-    public function userRoles(): HasMany {
+    public function userRoles(): HasMany
+    {
         return $this->hasMany(UserRole::class, 'user_id');
     }
 
-    public function profil(): HasOne {
-        return $this->hasOne(Profil::class,'user_id');
+    public function profil(): HasOne
+    {
+        return $this->hasOne(Profil::class, 'user_id');
     }
 
-    public function lowongan(): HasMany {
+    public function lowongan(): HasMany
+    {
         return $this->hasMany(Lowongan::class, 'user_id');
+    }
+
+    public function testimoni(): HasOne
+    {
+        return $this->hasOne(testimoni::class, 'user_id');
     }
 }

@@ -28,13 +28,15 @@ class Lowongan extends Model
 
     public $timestamps = true;
 
-    public function user() : BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    protected function timeFormat(): Attribute {
-        return Attribute::make(
-            get: fn (mixed $value) => Carbon::parse($value)->formatLocalized('%d-%b-%Y')
-        );
-    }
+    // protected function createdAt(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn(mixed $value) => Carbon::parse($value)->formatLocalized('%d-%b-%Y')
+    //     );
+    // }
 }

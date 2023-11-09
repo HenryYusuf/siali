@@ -16,9 +16,7 @@
                     <h4><strong>{{ $viewLowongan->nama_lowongan }} - {{ $viewLowongan->posisi }}</strong></h4>
                     <h4><strong>{{ $viewLowongan->nama_perusahaan }}</strong></h4>
                     <h4>{{ $viewLowongan->lokasi }}</h4>
-                    <h4>Diunggah pada {{ $viewLowongan->time_format }}</h4>
-                    {{-- <h4>Diunggah pada
-                        {{ Carbon\Carbon::parse(viewLowongan->created_at->toDateString())->formatLocalized('%A %d %B %Y') }}</h4> --}}
+                    <h4>Diunggah pada {{ Carbon\Carbon::parse($viewLowongan->created_at)->diffForHumans() }}</h4>
                     <hr>
                     <div class="text-center mb-3">
                         <img src="{{ asset($viewLowongan->foto_brosur) }}" alt="foto_brosur" class="img-thumbnail"

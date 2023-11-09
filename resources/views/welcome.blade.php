@@ -17,7 +17,7 @@
                                         placeholder="Search... e.g., Nama, Tahun Lulus, etc" required />
                                 </div>
                                 <div class="col-auto">
-                                    <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+                                    <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Search</button>
                                 </div>
                             </div>
                         </form>
@@ -27,29 +27,31 @@
         </div>
     </header>
     <!-- Icons Grid-->
-    <section class="features-icons bg-light text-center">
+    <section class="features-icons bg-light text-center pb-8">
         <div class="container">
             <div class="row">
                 @if ($alumni === '')
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
-                            <h3>Fully Responsive</h3>
-                            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
+                            <h3>Aksesibilitas</h3>
+                            <p class="lead mb-0">Memberikan akses yang mudah kepada alumni untuk terhubung dengan institusi!
+                            </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
-                            <h3>Bootstrap 5 Ready</h3>
-                            <p class="lead mb-0">Featuring the latest build of the new Bootstrap 5 framework!</p>
+                            <h3>Pemasaran dan jaringan</h3>
+                            <p class="lead mb-0">Membantu institusi pendidikan untuk mempromosikan prestasi alumni!</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
-                            <h3>Easy to Use</h3>
-                            <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                            <h3>Pengelolaan data efisien</h3>
+                            <p class="lead mb-0">Mempermudah pengelolaan data alumni, seperti informasi kontak, pencapaian,
+                                dan riwayat pendidikan!</p>
                         </div>
                     </div>
                 @else
@@ -86,7 +88,7 @@
         </div>
     </section>
     <!-- Image Showcases-->
-    <section class="showcase">
+    {{-- <section class="showcase">
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-lg-6 order-lg-2 text-white showcase-img"
@@ -119,35 +121,22 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Testimonials-->
-    <section class="testimonials text-center bg-light">
+    <section class="testimonials text-center bg-light pt-4">
         <div class="container">
-            <h2 class="mb-5">What people are saying...</h2>
+            <h2 class="mb-5">Apa yang mereka katakan...</h2>
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{ url($userURL[0]) }}" alt="..." />
-                        <h5>Margaret E.</h5>
-                        <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+                @foreach ($testimoni as $testi)
+                    <div class="col-lg-4">
+                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                            <img class="img-fluid rounded-circle mb-3" src="{{ asset($testi->profil->foto_profil) }}"
+                                alt="Foto User" />
+                            <h5>{{ $testi->nama }}</h5>
+                            <p class="font-weight-light mb-0">"{{ $testi->testimoni->deskripsi }}"</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{ url($userURL[1]) }}" alt="..." />
-                        <h5>Fred S.</h5>
-                        <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of
-                            super nice landing pages."</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="{{ url($userURL[2]) }}" alt="..." />
-                        <h5>Sarah W.</h5>
-                        <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to
-                            us!"</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

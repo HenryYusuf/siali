@@ -80,6 +80,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item {{ Request::is('testimonial') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ url('/testimoni') }}">
+                        <i class="align-middle" data-feather="file"></i>
+                        <span class="align-middle">Testimoni</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-header">Master Data Referensi</li>
 
                 <li
