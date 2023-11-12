@@ -1,10 +1,6 @@
 @extends('layouts.dashboard.dashboard_app')
 
 @section('title', 'Testimoni')
-{{-- @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-@endpush --}}
 @section('content')
     <div class="mb-3">
         <h1 class="h3 d-inline align-middle">Tables</h1>
@@ -12,10 +8,25 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+
                 <div class="card-header">
                     <h5 class="card-title mb-0">Testimoni</h5>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p class="mb-0">{{ $message }}</p>
+                        </div>
+                    @endif
                     <table class="table table-stripped">
                         <thead>
                             <tr>

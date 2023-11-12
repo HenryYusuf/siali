@@ -134,8 +134,8 @@
                                 <img src="{{ asset('dummy_image/dummy_image.jpg') }}" class="img-fluid rounded-circle mb-3"
                                     alt="Foto User" />
                             @else
-                                <img class="img-fluid rounded-circle mb-3" src="{{ asset($testi->profil->foto_profil) }}"
-                                    alt="Foto User" />
+                                <img class="img-fluid rounded-circle mb-3"
+                                    src="{{ asset('uploads/foto_profil/' . $testi->profil->foto_profil) }}" alt="Foto User" />
                             @endif
                             <h5>{{ $testi->nama }}</h5>
                             <p class="font-weight-light mb-0">"{{ $testi->testimoni->deskripsi }}"</p>
