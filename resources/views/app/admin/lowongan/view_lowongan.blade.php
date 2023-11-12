@@ -19,8 +19,8 @@
                     <h4>Diunggah pada {{ Carbon\Carbon::parse($viewLowongan->created_at)->diffForHumans() }}</h4>
                     <hr>
                     <div class="text-center mb-3">
-                        <img src="{{ asset($viewLowongan->foto_brosur) }}" alt="foto_brosur" class="img-thumbnail"
-                            width="500">
+                        <img src="{{ asset('uploads/foto_brosur/' . $viewLowongan->foto_brosur) }}" alt="foto_brosur"
+                            class="img-thumbnail" width="500">
                     </div>
                     <div class="mb-5">
                         <h6><strong>Job Description</strong></h6>

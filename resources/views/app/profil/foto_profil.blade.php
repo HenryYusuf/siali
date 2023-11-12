@@ -15,6 +15,20 @@
                 <div class="card-body">
                     <form action="/store-update-foto-profile/{{ $profil == null ? '' : $profil->user_id }}" method="POST"
                         enctype="multipart/form-data">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p class="mb-0">{{ $message }}</p>
+                            </div>
+                        @endif
                         @csrf
                         @if ($profil == null || $profil->foto_profil == null)
                             <div class="mb-3">
@@ -22,8 +36,8 @@
                                     width="200" height="200" />
                             </div>
                         @else
-                            <div class="mb-3"><img src="{{ asset($profil->foto_profil) }}" class="img-fluid"
-                                    alt="Foto Profil" width="200" height="200"></div>
+                            <div class="mb-3"><img src="{{ asset('uploads/foto_profil/' . $profil->foto_profil) }}"
+                                    class="img-fluid" alt="Foto Profil" width="200" height="200"></div>
                         @endif
                         <div class="mb-3">
                             <label class="form-label">Update Foto Profil</label>

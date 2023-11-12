@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReferensiTahun;
 use App\Models\StatusAlumni;
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -12,8 +13,20 @@ use Illuminate\View\View;
 
 class StatusAlumniController extends Controller
 {
-    public function statusAlumni(): View
+    public function statusAlumni(): mixed
     {
+        if (Auth::user()->roles->first()->nama_role == 'Administrator') {
+            return view('app.status_alumni.status_alumni');
+        }
+
+        $statusUser = User::with('profil')->whereHas('profil', function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        })->first();
+
+        if (empty($statusUser)) {
+            return redirect('/dashboard')->withErrors('Please fill in your profile first');
+        }
+
         return view('app.status_alumni.status_alumni');
     }
 
@@ -26,7 +39,7 @@ class StatusAlumniController extends Controller
         $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
-            return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
+            return redirect()->back()->with('error', 'Please fill in the alumni status in 6 months.');
         }
 
         StatusAlumni::create([
@@ -34,7 +47,7 @@ class StatusAlumniController extends Controller
             'status' => 'Tidak Bekerja',
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Thank you for filling in the alumni status!');
     }
 
     public function formLanjutStudy(): View
@@ -55,7 +68,7 @@ class StatusAlumniController extends Controller
         $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
-            return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
+            return redirect()->back()->with('error', 'Please fill in the alumni status in 6 months.');
         }
 
         $request->validate([
@@ -65,19 +78,22 @@ class StatusAlumniController extends Controller
             'bukti' => 'required',
         ]);
 
-        $file = $request->file('bukti');
-        $path = $file->store('uploads/lanjut_study');
+        $originName = $request->file('bukti')->getClientOriginalName();
+        $fileName = pathInfo($originName, PATHINFO_FILENAME);
+        $extension = $request->file('bukti')->getClientOriginalExtension();
+        $fileName = $fileName . '_' . time() . '.' . $extension;
+        $request->file('bukti')->move(public_path('uploads/lanjut_study'), $fileName);
 
-        $cek = StatusAlumni::create([
+        StatusAlumni::create([
             'user_id' => $id,
             'status' => 'Lanjut Study',
             'nama_sekolah' => $request->nama_sekolah,
             'jurusan' => $request->jurusan,
             'tahun_masuk' => $request->tahun_masuk,
-            'bukti' => $path,
+            'bukti' => $fileName,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Thank you for filling in the alumni status!');
     }
 
     public function formLanjutBekerja(): View
@@ -97,7 +113,7 @@ class StatusAlumniController extends Controller
         $prevStatus = StatusAlumni::where(['user_id' => $id])->whereDate('created_at', '>=', $sixMonthsAgo)->first();
 
         if ($prevStatus) {
-            return redirect()->back()->with('error', 'Anda sudah mengisi formulir hari ini.');
+            return redirect()->back()->with('error', 'Please fill in the alumni status in 6 months.');
         }
 
         $request->validate([
@@ -107,19 +123,22 @@ class StatusAlumniController extends Controller
             'bukti' => 'required',
         ]);
 
-        $file = $request->file('bukti');
-        $path = $file->store('uploads/lanjut_bekerja');
+        $originName = $request->file('bukti')->getClientOriginalName();
+        $fileName = pathInfo($originName, PATHINFO_FILENAME);
+        $extension = $request->file('bukti')->getClientOriginalExtension();
+        $fileName = $fileName . '_' . time() . '.' . $extension;
+        $request->file('bukti')->move(public_path('uploads/lanjut_bekerja'), $fileName);
 
-        $cek = StatusAlumni::create([
+        StatusAlumni::create([
             'user_id' => $id,
             'status' => 'Bekerja',
             'nama_perusahaan' => $request->nama_perusahaan,
             'posisi' => $request->posisi,
             'tahun_masuk' => $request->tahun_masuk,
-            'bukti' => $path,
+            'bukti' => $fileName,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Thank you for filling in the alumni status!');
     }
 
     public function riwayatLanjutStudy(): View

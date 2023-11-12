@@ -130,8 +130,13 @@
                 @foreach ($testimoni as $testi)
                     <div class="col-lg-4">
                         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="{{ asset($testi->profil->foto_profil) }}"
-                                alt="Foto User" />
+                            @if ($testi->profil->foto_profil == null)
+                                <img src="{{ asset('dummy_image/dummy_image.jpg') }}" class="img-fluid rounded-circle mb-3"
+                                    alt="Foto User" />
+                            @else
+                                <img class="img-fluid rounded-circle mb-3" src="{{ asset($testi->profil->foto_profil) }}"
+                                    alt="Foto User" />
+                            @endif
                             <h5>{{ $testi->nama }}</h5>
                             <p class="font-weight-light mb-0">"{{ $testi->testimoni->deskripsi }}"</p>
                         </div>
@@ -141,3 +146,25 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    @if (session('message'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('message') }}"
+            });
+        </script>
+    @endif
+@endpush

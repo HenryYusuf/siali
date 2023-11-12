@@ -31,13 +31,16 @@ Route::post('/search-alumni', [FrontController::class, 'index']);
 Route::get('/career', [CareerController::class, 'index']);
 Route::get('/career/{id}', [CareerController::class, 'viewCareer']);
 
-// Login
-Route::get('/login', [UserController::class, 'login'])->name('login');
-Route::post('/store-login', [UserController::class, 'storeLogin']);
+Route::middleware('guest')->group(function () {
+    // Login
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/store-login', [UserController::class, 'storeLogin']);
 
-// Register
-Route::get('/register', [UserController::class, 'register'])->name('register');
-Route::post('/store-register', [UserController::class, 'storeRegister']);
+    // Register
+    Route::get('/register', [UserController::class, 'register'])->name('register');
+    Route::post('/store-register', [UserController::class, 'storeRegister']);
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

@@ -11,7 +11,8 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function login() : View {
+    public function login(): View
+    {
         return view('auth.login');
     }
 
@@ -30,10 +31,11 @@ class UserController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors(['email' => 'Email yang dimasukkan salah', 'password' => 'Password yang dimasukkan salah'])->onlyInput('email', 'password');
+        return back()->withErrors(['email' => 'Email entered incorrectly', 'password' => 'The password entered is incorrect'])->onlyInput('email', 'password');
     }
 
-    public function register() : View {
+    public function register(): View
+    {
         return view('auth.register');
     }
 
@@ -68,10 +70,11 @@ class UserController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors(['email' => 'Silahkan gunakan email lain'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Please use another email'])->onlyInput('email');
     }
 
-    public function logout() : RedirectResponse {
+    public function logout(): RedirectResponse
+    {
         Auth::logout();
         return redirect()->intended('login');
     }

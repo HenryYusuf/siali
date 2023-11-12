@@ -13,6 +13,20 @@
                     <h5 class="card-title mb-0">Tambah Lowongan</h5>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p class="mb-0">{{ $message }}</p>
+                        </div>
+                    @endif
                     <form action="/store-lowongan" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
@@ -59,7 +73,7 @@
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('deskripsi', {
-            filebrowserUploadUrl: "{{route('ckeditor.image-upload', ['_token' => csrf_token() ])}}",
+            filebrowserUploadUrl: "{{ route('ckeditor.image-upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form'
         });
     </script>

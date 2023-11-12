@@ -73,7 +73,7 @@ class ProfilController extends Controller
             ]);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Profile update has been successful!');
     }
 
     public function updateFotoProfil($id): View
@@ -85,14 +85,20 @@ class ProfilController extends Controller
 
     public function addFotoProfil(Request $request, $id): RedirectResponse
     {
-        $file = $request->file('foto_profil');
-
-        $path = $file->store('uploads');
-
-        Profil::where('user_id', $id)->update([
-            'foto_profil' => $path,
+        $request->validate([
+            'foto_profil' => 'required|max:2048'
         ]);
 
-        return redirect()->back();
+        $originName = $request->file('foto_profil')->getClientOriginalName();
+        $fileName = pathInfo($originName, PATHINFO_FILENAME);
+        $extension = $request->file('foto_profil')->getClientOriginalExtension();
+        $fileName = $fileName . '_' . time() . '.' . $extension;
+        $request->file('foto_profil')->move(public_path('uploads/foto_profil'), $fileName);
+
+        Profil::where('user_id', $id)->update([
+            'foto_profil' => $fileName,
+        ]);
+
+        return redirect()->back()->with('success', 'Foto profile update has been successful!');
     }
 }

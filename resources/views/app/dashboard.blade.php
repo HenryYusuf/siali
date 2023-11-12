@@ -6,6 +6,20 @@
     <div class="mb-3">
         <h1 class="h3 d-inline align-middle">Dashboard</h1>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p class="mb-0">{{ $message }}</p>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -77,7 +91,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="deskripsi">Deskripsi</label>
-                                <textarea name="deskripsi" class="form-control" id="" cols="30" rows="5"></textarea>
+                                <textarea name="deskripsi" class="form-control" id="" cols="30" rows="5" style="resize: none"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

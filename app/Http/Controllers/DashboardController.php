@@ -31,6 +31,14 @@ class DashboardController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $statusUser = User::with('profil')->whereHas('profil', function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        })->first();
+
+        if (empty($statusUser)) {
+            return redirect('/dashboard')->withErrors('Please fill in your profile first');
+        }
+
         $request->validate([
             'deskripsi' => 'required'
         ]);
@@ -40,6 +48,6 @@ class DashboardController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        return back();
+        return back()->with('success', 'Thanks for filling testimoni too us!');
     }
 }

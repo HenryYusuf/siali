@@ -31,8 +31,8 @@
                                     <td>{{ $bekerja->posisi }}</td>
                                     <td>{{ $bekerja->tahun_masuk }}</td>
                                     <td>
-                                        <img src="{{ asset($bekerja->bukti) }}" alt="bukti" class="img-fluid"
-                                            width="50">
+                                        <img src="{{ asset('uploads/lanjut_bekerja/' . $bekerja->bukti) }}" alt="bukti"
+                                            class="img-fluid" width="50">
                                     </td>
                                 </tr>
                             @endforeach

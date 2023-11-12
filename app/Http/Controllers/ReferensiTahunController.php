@@ -45,7 +45,7 @@ class ReferensiTahunController extends Controller
             'ref_tahun' => $request->ref_tahun
         ]);
 
-        return redirect()->intended('referensi-tahun');
+        return redirect()->intended('referensi-tahun')->with('success', 'Referensi Tahun Successfully Added!');
     }
 
     public function deleteReferensiTahun($id): RedirectResponse
@@ -56,6 +56,6 @@ class ReferensiTahunController extends Controller
 
         ReferensiTahun::where('id', $id)->delete();
 
-        return redirect()->intended('referensi-tahun');
+        return redirect()->intended('referensi-tahun')->with('success', 'Referensi Tahun Successfully Deleted!');
     }
 }

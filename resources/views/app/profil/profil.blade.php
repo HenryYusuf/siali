@@ -13,6 +13,20 @@
                     <h5 class="card-title mb-0">Profil</h5>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p class="mb-0">{{ $message }}</p>
+                        </div>
+                    @endif
                     <form action="/store-update-profile/{{ $user->id }}" method="POST">
                         @csrf
                         <div class="mb-3">

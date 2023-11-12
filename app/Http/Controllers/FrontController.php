@@ -47,9 +47,12 @@ class FrontController extends Controller
                 })
                 ->paginate(5);
 
-            return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni]);
+            $count = $alumni->total();
+            // Flashing data
+            $request->session()->now('message', "Data ditemukan sebanyak: $count");
+            return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni, 'testimoni' => $testimoni]);
         }
 
-        return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => $alumni = "", 'testimoni' => $testimoni]);
+        return view('welcome', ['showcaseURL' => $showcaseURL, 'userURL' => $userURL, 'alumni' => '', 'testimoni' => $testimoni]);
     }
 }

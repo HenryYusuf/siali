@@ -7,6 +7,25 @@
         <h1 class="h3 d-inline align-middle">Cards</h1>
     </div>
     <div class="row">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p class="mb-0">{{ $message }}</p>
+            </div>
+        @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-warning">
+                <p class="mb-0">{{ $message }}</p>
+            </div>
+        @endif
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">

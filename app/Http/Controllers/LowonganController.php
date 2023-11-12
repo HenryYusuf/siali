@@ -47,23 +47,25 @@ class LowonganController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        $file = $request->file('foto_brosur');
-
-        $path = $file->store('uploads/foto_brosur');
+        $originName = $request->file('foto_brosur')->getClientOriginalName();
+        $fileName = pathInfo($originName, PATHINFO_FILENAME);
+        $extension = $request->file('foto_brosur')->getClientOriginalExtension();
+        $fileName = $fileName . '_' . time() . '.' . $extension;
+        $request->file('foto_brosur')->move(public_path('uploads/foto_brosur'), $fileName);
 
         Lowongan::create([
             'user_id' => Auth::user()->id,
             'nama_lowongan' => $request->nama_lowongan,
             'nama_perusahaan' => $request->nama_perusahaan,
             'lokasi' => $request->lokasi,
-            'foto_brosur' => $path,
+            'foto_brosur' => $fileName,
             'posisi' => $request->posisi,
             'gaji' => $request->gaji,
             'email' => $request->email,
             'deskripsi' => $request->deskripsi,
         ]);
 
-        return redirect()->intended('lowongan');
+        return redirect()->intended('lowongan')->with('success', 'Job Openings Successfully Saved');
 
     }
 
@@ -156,7 +158,8 @@ class LowonganController extends Controller
                 'deskripsi' => $request->deskripsi,
             ]);
 
-            return redirect()->intended('lowongan');
+            return redirect()->intended('lowongan')->with('success', 'Job Openings Successfully Updated');
+            ;
         }
 
     }
@@ -169,7 +172,7 @@ class LowonganController extends Controller
 
         Lowongan::where('id', $id)->delete();
 
-        return redirect()->intended('lowongan');
+        return redirect()->intended('lowongan')->with('success', 'Job Openings Successfully Deleted');
     }
 
     public function viewLowongan($id): View

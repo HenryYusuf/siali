@@ -14,8 +14,66 @@
                     class="nav-link px-2 {{ Request::is('about') ? 'link-secondary' : 'link-dark' }}">About</a></li>
         </ul>
         <div class="col-md-3 text-end">
-            <a class="btn btn-outline-primary me-2" href="{{ url('/login') }}">Sign In</a>
-            <a class="btn btn-primary" href="{{ url('/register') }}">Sign Up</a>
+            @auth
+                {{-- <a class="btn btn-outline-danger me-2" onclick="deleteHandler()" href="{{ url('/logout') }}">Logout</a> --}}
+                <a class="btn btn-outline-danger me-2" onclick="deleteHandler()" href="#">Logout</a>
+            @endauth
+            @guest
+                <a class="btn btn-outline-primary me-2" href="{{ url('/login') }}">Sign In</a>
+                <a class="btn btn-primary" href="{{ url('/register') }}">Sign Up</a>
+            @endguest
         </div>
     </nav>
 </div>
+
+@push('script')
+    <script>
+        function deleteHandler() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success ms-2",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, logout it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/logout').then((response) => {
+                        swalWithBootstrapButtons.fire({
+                            title: "Logout!",
+                            text: "You have logged out.",
+                            icon: "success"
+                        });
+
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 3000);
+                    }).catch((error) => {
+                        swalWithBootstrapButtons.fire({
+                            title: "Error",
+                            text: "Failed to log out. Please try again.",
+                            icon: "error"
+                        });
+                    });
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "You have canceled your logout 😄",
+                        icon: "info",
+                        timer: 3000,
+                    });
+                }
+            });
+        }
+    </script>
+@endpush

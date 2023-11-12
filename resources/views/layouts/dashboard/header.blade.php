@@ -6,18 +6,16 @@
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
-                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
-                    data-bs-toggle="dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                     <i class="align-middle" data-feather="settings"></i>
                 </a>
 
-                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
-                    data-bs-toggle="dropdown">
-                    @if (Auth::user()->profil == null)
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                    @if (Auth::user()->profil == null || Auth::user()->profil->foto_profil == null)
                         <img src="{{ asset('dummy_image/dummy_image.jpg') }}" class="avatar img-fluid rounded me-1"
                             alt="User" />
                     @else
-                        <img src="{{ asset(Auth::user()->profil->foto_profil) }}"
+                        <img src="{{ asset('uploads/foto_profil/' . Auth::user()->profil->foto_profil) }}"
                             class="avatar img-fluid rounded me-1" alt="User" />
                     @endif
                     <span class="text-dark">{{ Auth::user()->nama }}</span>

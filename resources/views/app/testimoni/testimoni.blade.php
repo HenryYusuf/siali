@@ -27,33 +27,39 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center">Kosong</td>
+                            </tr>
                             @foreach ($testimoni as $testi)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $testi->nama }}</td>
-                                    <td>{{ $testi->testimoni->deskripsi }}</td>
-                                    <td>
-                                        @if ($testi->testimoni->is_featured == 1)
-                                            <span class="badge bg-success">Featured</span>
-                                        @else
-                                            <span class="badge bg-warning">Not Featured</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($testi->testimoni->is_featured == 1)
-                                            <a href="/set-featured-testimoni/{{ $testi->testimoni->id }}"
-                                                title="Set Featured">
-                                                <i class="fa-solid fa-circle-xmark" style="color: red"></i>
-                                            </a>
-                                        @else
-                                            <a href="/set-featured-testimoni/{{ $testi->testimoni->id }}"
-                                                title="Set Featured">
-                                                <i class="fa-solid fa-check-circle" style="color: green"></i>
-                                            </a>
-                                        @endif
+                                @if ($testi->testimoni == null)
+                                @else
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $testi->nama }}</td>
+                                        <td>{{ $testi->testimoni->deskripsi }}</td>
+                                        <td>
+                                            @if ($testi->testimoni->is_featured == 1)
+                                                <span class="badge bg-success">Featured</span>
+                                            @else
+                                                <span class="badge bg-warning">Not Featured</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($testi->testimoni->is_featured == 1)
+                                                <a href="/set-featured-testimoni/{{ $testi->testimoni->id }}"
+                                                    title="Set Featured">
+                                                    <i class="fa-solid fa-circle-xmark" style="color: red"></i>
+                                                </a>
+                                            @else
+                                                <a href="/set-featured-testimoni/{{ $testi->testimoni->id }}"
+                                                    title="Set Featured">
+                                                    <i class="fa-solid fa-check-circle" style="color: green"></i>
+                                                </a>
+                                            @endif
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
