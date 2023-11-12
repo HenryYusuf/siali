@@ -27,9 +27,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="5" class="text-center">Kosong</td>
-                            </tr>
                             @foreach ($testimoni as $testi)
                                 @if ($testi->testimoni == null)
                                 @else
