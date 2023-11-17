@@ -9,7 +9,7 @@
     <meta name="author" content="AdminKit" />
     <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web" />
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="preconnect" href="{{ asset('https://fonts.gstatic.com') }}" />
     <link rel="shortcut icon" href="{{ asset('src_dashboard/img/icons/icon-48x48.png') }}" />
 
